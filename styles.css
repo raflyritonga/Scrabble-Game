@@ -6,10 +6,11 @@ body {
 
 table {
   border-collapse: collapse;
+  border: 5px solid #6A0D83;
 }
 
 td {
-  background: #47b75e;
+  background: #FFFFFF;
   border: 1px solid #d4fcdb;
   min-width: 24px;
   height: 27px;
