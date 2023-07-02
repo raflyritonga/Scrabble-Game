@@ -112,12 +112,17 @@ function showLetterInput(elem) {
   var targetPosition = elem.srcElement.id.substring(1, elem.srcElement.id.length).split("_");
   var x = parseInt(targetPosition[0]) - 1;
   var y = parseInt(targetPosition[1]) - 1;
-
+  console.log(targetPosition);
+  console.log(x + " " +y);
+  
   // if there is already a active tile, remove it.
   if (elem.target.classList.contains('player_set_tile')) {
     var returnedIndex = x * 15 + y;
     var letter = BOARD_LETTERS[returnedIndex];
+    console.log("returnedIndex: "+returnedIndex);
+    console.log("letter: "+letter);
     BOARD_LETTERS[x * 15 + y] = "";
+    console.log("BOARD_LETTERS: "+BOARD_LETTERS);
     TO_BE_PLAYED_BOARD_LETTER_INDEXES.splice(TO_BE_PLAYED_BOARD_LETTER_INDEXES.indexOf(returnedIndex), 1);
     PLAYER_1_LETTERS.push(letter);
     elem.target.classList.remove('player_set_tile');
@@ -185,6 +190,7 @@ function updatePlayButton() {
   var points = checkValidStateAndCalculatePoints();
   if (points) {
     console.log("updatePlayButton false");
+    addToHistory(points);
     document.getElementById("move").innerHTML = i18n("spielen") + " (" + i18n("für") + " " + points + " " + i18n("punkte") + ")";
     document.getElementById("move").disabled = false;
   } else {
@@ -203,7 +209,7 @@ function seededRandom(max, min) {
 }
 
 function drawTiles(player_var) {
-  while (player_var.length < 7 && LETTER_STASH.length > 0) {
+  while (player_var.length < 8 && LETTER_STASH.length > 0) {
     var i = seededRandom(0, LETTER_STASH.length);
     player_var.push(LETTER_STASH[i]);
     LETTER_STASH.splice(i, 1);
@@ -220,6 +226,7 @@ function printPlayersLetters() {
     out += '<div class="hand_letter">' + PLAYER_1_LETTERS[i] + '<div class="hand_letter_points">' + POINTS_PER_LETTER[PLAYER_1_LETTERS[i]] + '</div></div>';
   }
   document.getElementById("player_1_letters").innerHTML = out;
+  
 }
 
 function printBoard() {
@@ -253,13 +260,16 @@ function printBoard() {
     }
   }
 
+
+  
   // score
   document.getElementById("player_1_points").innerHTML = PLAYER_1_POINTS.toString();
   document.getElementById("player_2_points").innerHTML = PLAYER_2_POINTS.toString();
 
   // remaining tiles
   document.getElementById("letters_left").innerHTML = LETTER_STASH.length.toString();
-  console.log("printBoard");
+  console.log("PLAYER_1_POINTS");
+
 }
 
 function takeBackCurrentTiles() {
@@ -293,6 +303,7 @@ function isWordStartInDictionary(word) {
 function findWordsAndPointsByActiveLetters() {
   var words = [];
   var pointSum = 0;
+  
   for (var i = 0; i < TO_BE_PLAYED_BOARD_LETTER_INDEXES.length; i++) {
     var cur = TO_BE_PLAYED_BOARD_LETTER_INDEXES[i];
     /*
@@ -387,6 +398,7 @@ function findWordsAndPointsByActiveLetters() {
   }
   console.log("findWordsAndPointsByActiveLetters!");
   console.log(words + " ------ " + pointSum);
+
   return [words, pointSum];
 }
 
@@ -490,7 +502,15 @@ function checkValidStateAndCalculatePoints() {
     points += 50;
   }
   console.log("checkValidStateAndCalculatePoints");
+
   return points;
+}
+
+function addToHistory(PLAYER_1_LETTERS) {
+  var x = document.createElement("p");
+  var t = document.createTextNode(PLAYER_1_LETTERS);
+  x.appendChild(t);
+  document.body.appendChild(x);
 }
 
 function onFinishMoveClick() {
@@ -501,6 +521,7 @@ function onFinishMoveClick() {
   drawTiles(PLAYER_1_LETTERS);
   printPlayersLetters();
   printBoard();
+  
   startKiMove();
   console.log("onFinishMoveClick");
 }
@@ -803,6 +824,7 @@ function computerMove() {
   } else {
     BOTH_PLAYERS_PASS_COUNT = 0;
   }
+  
   printBoard();
 }
 

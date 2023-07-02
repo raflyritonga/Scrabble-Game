@@ -4,7 +4,7 @@ var TRANSLATION_MAP = {
   },
   "Buchstaben tauschen (passen)":{
     "german":"passen",
-    "english":"skip turn"
+    "english":"Change Letter"
   },
   "Übrige Buchstaben":{
     "english":"Letters left in stash"
@@ -13,7 +13,7 @@ var TRANSLATION_MAP = {
     "english":"Your letters"
   },
   "spielen":{
-    "english":"set letters"
+    "english":"Submit"
   },
   "Dreifacher Buchstabenwert":{
     "english":"triple letter value"
