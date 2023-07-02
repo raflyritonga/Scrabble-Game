@@ -15,6 +15,8 @@
  limitations under the License.
 
  **/
+var collectAllPlayer_2 = [];
+newCollectAllPlayer_2 = [];
 var BOARD = null; // future pointer to dom element
 var BOARD_LETTERS = [];
 var TO_BE_PLAYED_BOARD_LETTER_INDEXES = [];
@@ -59,7 +61,7 @@ function i18n(text) {
   if (TRANSLATION_MAP[text] && TRANSLATION_MAP[text][lang]) {
     return TRANSLATION_MAP[text][lang];
   }
-  console.log("i18n");
+  // console.log("i18n");
   return text;
 }
 
@@ -104,7 +106,7 @@ function loadDictionary() {
     }
   };
   request.send(null);
-  console.log("loadDictionary");
+  // console.log("loadDictionary");
 }
 
 function showLetterInput(elem) {
@@ -112,17 +114,17 @@ function showLetterInput(elem) {
   var targetPosition = elem.srcElement.id.substring(1, elem.srcElement.id.length).split("_");
   var x = parseInt(targetPosition[0]) - 1;
   var y = parseInt(targetPosition[1]) - 1;
-  console.log(targetPosition);
-  console.log(x + " " +y);
+  // console.log(targetPosition);
+  // console.log(x + " " +y);
   
   // if there is already a active tile, remove it.
   if (elem.target.classList.contains('player_set_tile')) {
     var returnedIndex = x * 15 + y;
     var letter = BOARD_LETTERS[returnedIndex];
-    console.log("returnedIndex: "+returnedIndex);
-    console.log("letter: "+letter);
+    // console.log("returnedIndex: "+returnedIndex);
+    // console.log("letter: "+letter);
     BOARD_LETTERS[x * 15 + y] = "";
-    console.log("BOARD_LETTERS: "+BOARD_LETTERS);
+    // console.log("BOARD_LETTERS: "+BOARD_LETTERS);
     TO_BE_PLAYED_BOARD_LETTER_INDEXES.splice(TO_BE_PLAYED_BOARD_LETTER_INDEXES.indexOf(returnedIndex), 1);
     PLAYER_1_LETTERS.push(letter);
     elem.target.classList.remove('player_set_tile');
@@ -183,18 +185,17 @@ function letterClicked(elem) {
   printPlayersLetters();
   printBoard();
   updatePlayButton();
-  console.log("letterClicked");
+  // console.log("letterClicked");
 }
 
 function updatePlayButton() {
-  var points = checkValidStateAndCalculatePoints();
+  var points = checkValidStateAndCalculatePoints()[1];
   if (points) {
-    console.log("updatePlayButton false");
-    addToHistory(points);
+    // console.log("updatePlayButton false");
     document.getElementById("move").innerHTML = i18n("spielen") + " (" + i18n("für") + " " + points + " " + i18n("punkte") + ")";
     document.getElementById("move").disabled = false;
   } else {
-    console.log("updatePlayButton true");
+    // console.log("updatePlayButton true");
     document.getElementById("move").innerHTML = i18n("spielen");
     document.getElementById("move").disabled = true;
   }
@@ -268,7 +269,7 @@ function printBoard() {
 
   // remaining tiles
   document.getElementById("letters_left").innerHTML = LETTER_STASH.length.toString();
-  console.log("PLAYER_1_POINTS");
+  // console.log("PLAYER_1_POINTS");
 
 }
 
@@ -282,21 +283,21 @@ function takeBackCurrentTiles() {
   printPlayersLetters();
   printBoard();
   updatePlayButton();
-  console.log("takeBackCurrentTiles");
+  // console.log("takeBackCurrentTiles");
 }
 
 function isWordInDictionary(word) {
   if (Math.random() > KI_INTELLIGENCE) {
-    console.log("NOT isWordInDictionary");
+    // console.log("NOT isWordInDictionary");
     return false;
   }
-  console.log("isWordInDictionary");
+  // console.log("isWordInDictionary");
   // return DICTIONARY.match(word) !== null;
   return DICTIONARY.match("\n" + word) !== null;
 }
 
 function isWordStartInDictionary(word) {
-  console.log("isWordInDictionary");
+  // console.log("isWordInDictionary");
   return DICTIONARY.match("\n" + word) !== null;
 }
 
@@ -396,8 +397,8 @@ function findWordsAndPointsByActiveLetters() {
       pointSum += points * word_multiplier;
     }
   }
-  console.log("findWordsAndPointsByActiveLetters!");
-  console.log(words + " ------ " + pointSum);
+  // console.log("findWordsAndPointsByActiveLetters!");
+  // console.log(words + " ------ " + pointSum);
 
   return [words, pointSum];
 }
@@ -453,7 +454,7 @@ function isLetterPositionValid() {
       return true;
     }
   }
-  console.log("isLetterPositionValid");
+  // console.log("isLetterPositionValid");
   return wasBoardEmpty() && isCenterFieldUsed();
 }
 
@@ -463,7 +464,7 @@ function wasBoardEmpty() {
       return false;
     }
   }
-  console.log("wasBoardEmpty");
+  // console.log("wasBoardEmpty");
   return true;
 }
 
@@ -477,7 +478,7 @@ function isFieldWithLetter(index) {
 
 function checkValidStateAndCalculatePoints() {
   if (!isLetterPositionValid()) {
-    console.log("isLetterPositionValid");
+    // console.log("isLetterPositionValid");
     return false;
   }
 
@@ -491,9 +492,9 @@ function checkValidStateAndCalculatePoints() {
 
   //ERROR IN HERE FOR COMPARING WORDS
   for (var i = 0; i < words.length; i++) {
-    console.log(words[i]);
+    // console.log(words[i]);
     if (!isWordInDictionary(words[i])) { //SIN
-      console.log("checkValidStateAndCalculatePoints isWordInDictionary");
+      // console.log("checkValidStateAndCalculatePoints isWordInDictionary");
       return false;
     }
   }
@@ -501,9 +502,9 @@ function checkValidStateAndCalculatePoints() {
   if (TO_BE_PLAYED_BOARD_LETTER_INDEXES.length === 7) {
     points += 50;
   }
-  console.log("checkValidStateAndCalculatePoints");
+  // console.log("checkValidStateAndCalculatePoints");
 
-  return points;
+  return [words, points];
 }
 
 function addToHistory(PLAYER_1_LETTERS) {
@@ -514,16 +515,24 @@ function addToHistory(PLAYER_1_LETTERS) {
 }
 
 function onFinishMoveClick() {
-  console.log("onFinishMoveClick()!");
-  PLAYER_1_POINTS += checkValidStateAndCalculatePoints();
+  // console.log("onFinishMoveClick()!");
+  var PLAYER_1_MOVE = checkValidStateAndCalculatePoints(); //FIND A WORD TO ADD TO HISTORY addToHistory
+  var PLAYER_1_WORD = PLAYER_1_MOVE[0];
+  PLAYER_1_POINTS += PLAYER_1_MOVE[1];
+
+
   BOTH_PLAYERS_PASS_COUNT = 0;
   TO_BE_PLAYED_BOARD_LETTER_INDEXES = [];
   drawTiles(PLAYER_1_LETTERS);
   printPlayersLetters();
   printBoard();
   
+  addToHistory(PLAYER_1_WORD)
+  addToHistory(PLAYER_1_POINTS)
+
   startKiMove();
-  console.log("onFinishMoveClick");
+
+  // console.log("onFinishMoveClick");
 }
 
 function setKiMaxStrength(src) {
@@ -582,7 +591,7 @@ function onSelectSwapTilesClicked() {
   var button = document.getElementById('pass');
   button.innerHTML = i18n('Wähle die Buchstaben aus, welche Du tauschen möchtest, dann klicke hier');
   button.onclick = onPerformSwapTiles;
-  console.log("onSelectSwapTilesClicked()");
+  // console.log("onSelectSwapTilesClicked()");
 }
 
 function onPerformSwapTiles() {
@@ -655,7 +664,9 @@ function endGame() {
  * letters: array of available letters
  * result: object of indexes in game array and the letters to be set
  */
+
 function tryFreePositions(pos, letters, result) {
+  
   var tryPos = pos.pop();
   TO_BE_PLAYED_BOARD_LETTER_INDEXES.push(tryPos);
 
@@ -682,24 +693,43 @@ function tryFreePositions(pos, letters, result) {
         tryFreePositions(pos, letters, result);
       }
     } else {
-      var points = checkValidStateAndCalculatePoints();
-
+      var catchPlayer_2 = checkValidStateAndCalculatePoints()
+      var points = catchPlayer_2[1];
+      // var PLAYER_2_WORD = catchPlayer_2[0];
+      
       // store points
       // store position and letters in result
       if (points > MAX_POINTS) {
         MAX_POINTS = points;
         //copy by value
         MAX_RESULT = JSON.parse(JSON.stringify(result));
+        
+        // var PLAYER_2_WORD = catchPlayer_2[0]; //FIND THE WORD AND PRINT TO ADD HISTORY
+        // console.log(PLAYER_2_WORD.length);
+        // for (let i = 0; i < PLAYER_2_WORD.length; i++) {
+        //   console.log(MAX_RESULT);
+        //   addToHistory(PLAYER_2_WORD[i]);
+        // }
+        collectAllPlayer_2.push(catchPlayer_2[0]); //WORDS
+        collectAllPlayer_2.push(catchPlayer_2[1]); //POINTS
+
+        newCollectAllPlayer_2.push(collectAllPlayer_2);
       }
+
+
+
     }
     BOARD_LETTERS[tryPos] = '';
     result[tryPos] = '';
     letters.insert(k, tempLetter);
+
   }
+
+  // console.log(collectAllPlayer_2);
 
   pos.push(tryPos);
   TO_BE_PLAYED_BOARD_LETTER_INDEXES.splice(TO_BE_PLAYED_BOARD_LETTER_INDEXES.indexOf(tryPos), 1);
-  console.log("tryFreePositions");
+  // console.log("tryFreePositions");
 }
 
 //fancy ki comes here
@@ -805,7 +835,7 @@ function computerMove() {
       }
     }
   }
-
+  
   PLAYER_2_POINTS += MAX_POINTS;
 
   LETTERS_PLAYED_BY_KI_INDEXES = [];
@@ -815,6 +845,7 @@ function computerMove() {
     PLAYER_2_LETTERS.splice(letter_pos, 1);
     BOARD_LETTERS[i] = MAX_RESULT[i];
   }
+  
 
   TO_BE_PLAYED_BOARD_LETTER_INDEXES.length = 0;
   drawTiles(PLAYER_2_LETTERS);
@@ -825,6 +856,22 @@ function computerMove() {
     BOTH_PLAYERS_PASS_COUNT = 0;
   }
   
+  //new = [[1,1],[1,2]]
+  //PRINT LAST INDEX ARRAY IN OPPONENT OPTIONS
+  console.log(newCollectAllPlayer_2)
+  // addToHistory(newCollectAllPlayer_2)
+  for (var i = 0; i < newCollectAllPlayer_2.length; i++) {
+    if (i == newCollectAllPlayer_2.length - 1){
+      for (var j = 0; j < newCollectAllPlayer_2[i].length; j++){
+        if (j == newCollectAllPlayer_2[i].length - 1){
+          addToHistory(newCollectAllPlayer_2[i][j-1]);
+          addToHistory(newCollectAllPlayer_2[i][j]);
+        }
+      }
+    }
+  }
+
+
   printBoard();
 }
 
@@ -844,5 +891,5 @@ function startGame() {
   drawTiles(PLAYER_2_LETTERS);
   printPlayersLetters();
   printBoard();
-  console.log("startGame");
+  // console.log("startGame");
 }
