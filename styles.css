@@ -74,6 +74,7 @@ td {
 
 .letters_left {
   display: inline-block;
+  margin-top: 25px;
 }
 
 .player_name {
@@ -112,7 +113,6 @@ td {
   margin-bottom: 15px;
 }
 .letter_board{
-  margin-top: 25px;
   padding: 20px;
   border-top: 8px solid #6A0D83;
   background-color: #D9D9D9;
