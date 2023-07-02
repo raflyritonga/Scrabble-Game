@@ -1,20 +1,21 @@
 body {
-  background: #3b874b;
   font-family: Verdana,Arial,Helvetica,sans-serif;
   padding: 20px;
 }
 
 table {
   border-collapse: collapse;
-  border: 5px solid #6A0D83;
+  background-color: #D9D9D9;
+  outline: 5px solid #6A0D83;
+  outline-offset: 0px;
 }
-
 td {
-  background: #FFFFFF;
-  border: 1px solid #d4fcdb;
   min-width: 24px;
   height: 27px;
   text-align: center;
+  background-color: #FFFFFF;
+  border-radius: 8px;
+  border: 3px solid #D9D9D9;
 }
 
 .input_letter {

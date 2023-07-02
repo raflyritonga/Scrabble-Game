@@ -281,7 +281,8 @@ function isWordInDictionary(word) {
     return false;
   }
   console.log("isWordInDictionary");
-  return DICTIONARY.match("\n" + word + "\n") !== null;
+  // return DICTIONARY.match(word) !== null;
+  return DICTIONARY.match("\n" + word) !== null;
 }
 
 function isWordStartInDictionary(word) {
@@ -385,6 +386,7 @@ function findWordsAndPointsByActiveLetters() {
     }
   }
   console.log("findWordsAndPointsByActiveLetters!");
+  console.log(words + " ------ " + pointSum);
   return [words, pointSum];
 }
 

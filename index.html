@@ -273,6 +273,10 @@
         </tr>
       </table>
 
+
+      <!------------
+        CHOOSE YOUR LETTER 
+      ---------->
       <div id="your_letters">
         <script>document.write(i18n("Deine Buchstaben"))</script>:
       </div>
@@ -285,6 +289,9 @@
         <script>document.write(i18n("Buchstaben tauschen (passen)"))</script>
       </button>
 
+      <!------------
+        SCORING BOARD 
+      ---------->
       <div class="score_container">
         <div class="player_name">
           <script>document.write(i18n("DU"))</script>:
@@ -298,6 +305,8 @@
           <script>document.write(i18n("Übrige Buchstaben"))</script>: <span id="letters_left"></span>
         </div>
       </div>
+
+
 
       <script>document.write(i18n("Wähle die Stärke des Computers"))</script>
       <select class="ai_strength" onchange="setKiMaxStrength(this)">
