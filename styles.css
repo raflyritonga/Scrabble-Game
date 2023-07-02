@@ -112,6 +112,7 @@ td {
   margin-bottom: 15px;
 }
 .letter_board{
+  margin-top: 25px;
   padding: 20px;
   border-top: 8px solid #6A0D83;
   background-color: #D9D9D9;
@@ -123,6 +124,31 @@ td {
   flex-wrap: wrap;
   justify-content: space-between;
   width: 80%;
+}
+.history_board{
+  padding: 20px;
+  border-top: 8px solid #6A0D83;
+  background-color: #D9D9D9;
+  width: 40%;
+}
+.history_board h3{
+  margin: 0px;
+}
+#history_result{
+  height: 150px;
+  overflow: auto;
+  overflow-x: hidden; /* Hide horizontal scrollbar */
+}
+.history_item{
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: bowrap;
+  font-size: 21px;
+  
+}
+.history_item p{
+  margin-top: 5px;
+  margin-bottom: 5px;
 }
 .player_2{
   margin-top: 10px;

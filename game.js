@@ -507,11 +507,22 @@ function checkValidStateAndCalculatePoints() {
   return [words, points];
 }
 
-function addToHistory(PLAYER_1_LETTERS) {
-  var x = document.createElement("p");
-  var t = document.createTextNode(PLAYER_1_LETTERS);
-  x.appendChild(t);
-  document.body.appendChild(x);
+function addToHistory(word, point) {
+  // Select the element by class name
+  const elements = document.getElementById("history_result");
+  var x = document.createElement("div");
+  x.className = "history_item";
+  var y = document.createElement("p");
+  var z = document.createTextNode(word);
+  x.appendChild(y);
+  y.appendChild(z);
+  elements.appendChild(x);
+
+  var y = document.createElement("p");
+  var z = document.createTextNode(point);
+  x.appendChild(y);
+  y.appendChild(z);
+  elements.appendChild(x);
 }
 
 function onFinishMoveClick() {
@@ -527,8 +538,7 @@ function onFinishMoveClick() {
   printPlayersLetters();
   printBoard();
   
-  addToHistory(PLAYER_1_WORD)
-  addToHistory(PLAYER_1_POINTS)
+  addToHistory(PLAYER_1_WORD, PLAYER_1_POINTS);
 
   startKiMove();
 
@@ -864,8 +874,7 @@ function computerMove() {
     if (i == newCollectAllPlayer_2.length - 1){
       for (var j = 0; j < newCollectAllPlayer_2[i].length; j++){
         if (j == newCollectAllPlayer_2[i].length - 1){
-          addToHistory(newCollectAllPlayer_2[i][j-1]);
-          addToHistory(newCollectAllPlayer_2[i][j]);
+          addToHistory(newCollectAllPlayer_2[i][j-1], newCollectAllPlayer_2[i][j]);
         }
       }
     }
