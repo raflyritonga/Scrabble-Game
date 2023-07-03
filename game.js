@@ -538,7 +538,7 @@
    printPlayersLetters();
    printBoard();
    
-   addToHistory(PLAYER_1_WORD, PLAYER_1_POINTS);
+   addToHistory(PLAYER_1_WORD, PLAYER_1_MOVE[1]);
  
    startKiMove();
  
