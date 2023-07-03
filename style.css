@@ -1,239 +1,148 @@
 @import url('https://fonts.googleapis.com/css2?family=Acme&display=swap');
 
-body {
-  font-family: Acme,sans-serif;
-  padding: 20px;
+*, html{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins',sans-serif;
 }
 
-table {
-  border-collapse: collapse;
-  background-color: #D9D9D9;
-  outline: 6px solid #6A0D83;
-  outline-offset: 0px;
-}
-td {
-  min-width: 32px;
-  height: 36px;
-  text-align: center;
-  background-color: #FFFFFF;
-  border-radius: 8px;
-  border: 3px solid #D9D9D9;
+.container{
+     height: 100vh;
+     width: 100%;
 }
 
-.right-side{
-  font-size: 24px;
-  color: #72158C;
+.titleBar{
+     height: 9%;
+     width: 100%;
+     border-bottom-right-radius: 25px;
+     border-bottom-left-radius: 25px;
+     background-image: linear-gradient(#6A0D83, #8727A0);
+     position: sticky;
+     z-index: 3;
 }
 
-.input_letter {
-  cursor: pointer;
-  font-weight: bold;
-  display: inline-block;
-  margin: 5px;
-  padding: 5px;
-  border: 1px solid orange;
-  background-color: white;
-  color: initial;
-  width: 18px;
-  height: 18px;
-  text-align: center;
+.titleBar > h3{
+     color: white;
+     font-size: 2.6rem;
+     margin-left: 3rem;
+     font-family: 'Acme', sans-serif;
+     font-weight: 300;
+     letter-spacing: 2px;
 }
 
-#input_container {
-  display: none;
-  border: 1px solid;
-  height: 100%;
-  width: 100%;
-  position: absolute;
-  top: 0;
-  left: 0;
-  background-color: black;
-  color: white;
-  opacity: 0.7;
+.container > .homePict {
+     height: 57%;
+     width: 100%;
+     margin-top: -1rem;
+     background-image: url(homePict.jpg);
+     border-bottom-right-radius: 10%;
+     border-bottom-left-radius: 10%;
+     filter: contrast(.85) opacity(.8);
+     background-position: center;
+     background-repeat: no-repeat;
+     background-size: cover;
 }
 
-.hand_letter {
-  background: #0B2187;
-  color: #FFFFFF;
-  font-weight: bold;
-  display: inline-block;
-  text-align: left;
-  margin: 5px;
-  width: 40px;
-  height: 45px;
-  padding-top: 3px;
-  padding-left: 16px;
-  font-size: 32px;
-  border-radius: 6px;
-}
-.hand_letter_points {
-  display: inline;
-  margin-left: 2px;
-  font-size: 12pt;
+.container > a{
+     color: rgb(255, 255, 255);
+     text-decoration: none;
+     background-image: linear-gradient(#8727A0, #6A0D83);
+     padding: 1.2rem 3.5rem;
+     font-size: 1.7rem;
+     font-family: 'Acme', sans-serif;
+     font-weight: 300;
+     letter-spacing: 2px;
+     z-index: 3;
+     position: absolute;
+     left: 41%;
+     bottom: 30%;
+     border-radius: 30px;
 }
 
-.letters_left {
-  display: inline-block;
-  margin-top: 25px;
+.tutorial{
+     width: 0;
+     height: 0;
+     overflow: hidden;
+     position: fixed;
+     background-color: rgba(0, 0, 0, 0.9);
+     z-index: 888;
+     transition: 0.5s;
+     padding: 100px ;
 }
 
-.player_name {
-  display: inline-block;
-  margin-left: 5px;
+.tutorial:target{
+     width: auto;
+     height: auto;
+     top: 0;
+     left: 0;
+     bottom: 0;
+     right: 0;
+     background-color: rgba(0, 0, 0, 0.6);
+   }
+
+.tutorial > .tutorials{
+     width: 65%;
+     height: 75%;
+     background-color: rgb(255, 255, 255);
+     border-radius: 30px;
+     margin: 0 auto;
+     margin-top: 5.5rem;
 }
 
-.tw {
-  background:#E60000;
-}
-.dw {
-  background:#F86969;
-}
-.tl {
-  background:#3675FA;
-}
-.dl {
-  background:#22ACD8;
-}
-.start {
-  background:#ff5500;
+.tutorial > .tutorials > .logo{
+     width: 65%;
+     height: 60%;
+     position: relative;
+     left: 35%;
 }
 
-.color_instruction {
-  display: inline-block;
-  height: 20px;
-  width: 20px;
-  margin: 2px;
+.tutorial > .tutorials > .logo > img{
+     width: 45%;
+     height: 40%;
 }
 
-.score_container {
-  padding: 20px;
-  border-top: 8px solid #6A0D83;
-  background-color: #D9D9D9;
-  width: 40%;
-  margin-bottom: 15px;
-}
-.letter_board{
-  padding: 20px;
-  border-top: 8px solid #6A0D83;
-  background-color: #D9D9D9;
-  width: 100%;
-  margin-bottom: 15px;
-}
-.player_1, .player_2{
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  width: 80%;
-}
-.history_board{
-  padding: 20px;
-  border-top: 8px solid #6A0D83;
-  background-color: #D9D9D9;
-  width: 40%;
-}
-.history_board h3{
-  margin: 0px;
-}
-#history_result{
-  height: 150px;
-  overflow: auto;
-  overflow-x: hidden; /* Hide horizontal scrollbar */
-}
-.history_item{
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: bowrap;
-  font-size: 21px;
-  
-}
-.history_item p{
-  margin-top: 5px;
-  margin-bottom: 5px;
-}
-.player_2{
-  margin-top: 10px;
-}
-.name_style{
-  text-align: left;
-}
-.point_style{
-  text-align: right;
-  background-color: #72158C;
-  padding: 4px 16px;
-  color: #FFFFFF;
-  border-radius: 6px;
-}
-#board {
-  font-weight: bold;
+.tutorial > .tutorials > .explain{
+     background-color: white;
+     margin-top: -9rem;
+     margin-left: 2rem;
+     padding-left: 2rem;
 }
 
-#your_letters {
-  margin-top: 10px;
+.tutorial > .tutorials > .explain > ol > li{
+     font-family: 'Acme', sans-serif;
+     font-size: 1.5rem;
+     color: #8727A0;
+     letter-spacing: 2px;
+     margin-top: 1rem;
 }
 
-.input_here {
-  background: #ff0000;
+.tutorial > .tutorials > .explain > ul{
+     margin-left: 13rem;
 }
 
-.player_set_tile {
-  background: #ff9900;
+.tutorial > .tutorials > .explain > ul > li{
+     font-family: 'Acme', sans-serif;
+     width: max-content;
+     font-size: 1rem;
+     color: #ffffff;
+     letter-spacing: 2px;
+     margin-top: 1.3rem;
+     padding: .8rem;
+     background-color: #8727A0;
+     margin-right: 1rem;
+     display: inline-block;
+     list-style: none;
+     border-radius: 20px;
 }
 
-.ki_set_tile {
-  background: #d3f7db;
+.tutorial > .tutorials > .explain > ul > li > a{
+     font-family: 'Acme', sans-serif;
+     font-size: 1.2rem;
+     color: #ffffff;
+     text-decoration: none;
 }
 
-.language_selector a {
-  color: #2f2f2d;
-  margin-top: 20px;
-  margin-bottom: 10px;
-  display: block;
-}
-
-img {
-  margin-right: 5px;
-}
-
-.button {
-  border-radius: 6px;
-  cursor: pointer;
-  padding: 8px 16px;
-  background: #72158C;
-  color: #FFFFFF;
-  font-family: Acme;
-  font-size: 21px;
-  border: none;
-  margin-top: 20px;
-}
-
-.button:disabled, .button[disabled] {
-  cursor: auto;
-  background-color: #707070;
-}
-.skip{
-  background-color: #9D0010;
-}
-.game {
-  display: flex;
-  margin-right: 50px;
-  flex-wrap: nowrap;
-  gap: 3%;
-  width: 100%;
-  margin: 0 auto;
-}
-
-.manual {
-  max-width: 550px;
-}
-
-h1, h2 {
-  font-size: 100%;
-}
-
-.wrapper {
-  max-width: 1300px;
-  margin-left: auto;
-  margin-right: auto;
-  display: flex;
-  flex-wrap: wrap;
+.tutorial > .tutorials > .explain > ul > .cancel{
+     z-index: inherit;
 }

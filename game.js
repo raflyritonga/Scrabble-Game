@@ -1,22 +1,6 @@
-/**
-
- Copyright 2014-2018 David Edler
-
- Licensed under the Apache License, Version 2.0 (the "License");
- you may not use this file except in compliance with the License.
- You may obtain a copy of the License at
-
- http://www.apache.org/licenses/LICENSE-2.0
-
- Unless required by applicable law or agreed to in writing, software
- distributed under the License is distributed on an "AS IS" BASIS,
- WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- See the License for the specific language governing permissions and
- limitations under the License.
-
- **/
  var collectAllPlayer_2 = [];
- newCollectAllPlayer_2 = [];
+ var newCollectAllPlayer_2 = [];
+ var countingPlay = 0;
  var BOARD = null; // future pointer to dom element
  var BOARD_LETTERS = [];
  var TO_BE_PLAYED_BOARD_LETTER_INDEXES = [];
@@ -144,8 +128,10 @@
  
    // show the input layer
    var input_container = document.getElementById("input_container");
-   input_container.style.padding = (elem.srcElement.offsetTop + 10) + " 0 0 " + (elem.srcElement.offsetLeft + 55);
+   var input_wrapper = document.getElementById("input_wrapper");
+  //  input_container.style.padding = (elem.srcElement.offsetTop + 10) + " 0 0 " + (elem.srcElement.offsetLeft + 55);
    input_container.style.display = "block";
+   input_wrapper.style.display = "block";
    input_container.innerHTML = i18n('Welchen Buchstaben möchtest du hier setzen?') + "<br><div class='input_letter'>" + PLAYER_1_LETTERS.join("</div><div class='input_letter'>") + "</div>";
  
    // append event listeners to input buttons
@@ -158,6 +144,7 @@
  function letterClicked(elem) {
    // hide input layer
    document.getElementById("input_container").style.display = "none";
+   document.getElementById("input_wrapper").style.display = "none";
  
    // get target field
    var targetRect = document.getElementsByClassName("input_here")[0];
@@ -262,7 +249,6 @@
    }
  
  
-   
    // score
    document.getElementById("player_1_points").innerHTML = PLAYER_1_POINTS.toString();
    document.getElementById("player_2_points").innerHTML = PLAYER_2_POINTS.toString();
@@ -271,6 +257,15 @@
    document.getElementById("letters_left").innerHTML = LETTER_STASH.length.toString();
    // console.log("PLAYER_1_POINTS");
  
+ }
+
+ function isWinning(){
+  console.log(PLAYER_1_POINTS + " " + PLAYER_2_POINTS)
+  if (PLAYER_1_POINTS > PLAYER_2_POINTS){
+    console.log('Player 1 win');
+  } else  {
+    console.log('Player 2 win');
+  }
  }
  
  function takeBackCurrentTiles() {
@@ -539,9 +534,14 @@
    printBoard();
    
    addToHistory(PLAYER_1_WORD, PLAYER_1_MOVE[1]);
- 
    startKiMove();
- 
+
+   countingPlay++;
+
+   if (countingPlay === 2){
+    isWinning();
+   }
+   
    // console.log("onFinishMoveClick");
  }
  
@@ -558,6 +558,7 @@
  
    document.getElementById("input_container").innerHTML = 'waiting for ki';
    document.getElementById("input_container").style.display = "block";
+   document.getElementById("input_wrapper").style.display = "block";
  
    setTimeout(
      function () {
@@ -566,6 +567,7 @@
        computerMove();
        if (!IS_GAME_FINISHED) {
          document.getElementById("input_container").style.display = "none";
+         document.getElementById("input_wrapper").style.display = "none";
          KI_INTELLIGENCE = 1;
        }
      },
@@ -653,6 +655,7 @@
  
    document.getElementById("input_container").innerHTML = 'game over <a href="./" style="color:#ff9900">start new game</a>';
    document.getElementById("input_container").style.display = "block";
+   document.getElementById("input_wrapper").style.display = "block";
  
    document.getElementById("move").disabled = true;
    document.getElementById('pass').disabled = true;
