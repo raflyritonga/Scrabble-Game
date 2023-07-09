@@ -288,12 +288,12 @@
    }
    // console.log("isWordInDictionary");
    // return DICTIONARY.match(word) !== null;
-   return DICTIONARY.match("," + word, ",") !== null;
+   return DICTIONARY.match("," + word, + ",") !== null;
  }
  
  function isWordStartInDictionary(word) {
    // console.log("isWordInDictionary");
-   return DICTIONARY.match("," + word, ",") !== null;
+   return DICTIONARY.match("," + word, + ",") !== null;
  }
  
  function findWordsAndPointsByActiveLetters() {
@@ -351,8 +351,10 @@
        h += 1;
      }
      if (word.length > 1 && words.indexOf(word) === -1) {
-       words.push(word);
-       pointSum += points * word_multiplier;
+      if (isWordInDictionary(word)){
+        words.push(word);
+        pointSum += points * word_multiplier;
+      }
      }
  
      /*
@@ -388,12 +390,14 @@
        v += 15;
      }
      if (word.length > 1 && words.indexOf(word) === -1) {
-       words.push(word);
-       pointSum += points * word_multiplier;
+      if (isWordInDictionary(word)){
+        words.push(word);
+        pointSum += points * word_multiplier;
+      }
      }
    }
-   // console.log("findWordsAndPointsByActiveLetters!");
-   // console.log(words + " ------ " + pointSum);
+  //  console.log("findWordsAndPointsByActiveLetters!");
+  //  console.log(words + " ------ " + pointSum);
  
    return [words, pointSum];
  }
@@ -499,6 +503,9 @@
    }
    // console.log("checkValidStateAndCalculatePoints");
  
+  //  console.log("Word and Point")
+  //  console.log(words)
+  //  console.log(points)
    return [words, points];
  }
  
@@ -723,10 +730,17 @@
          //   console.log(MAX_RESULT);
          //   addToHistory(PLAYER_2_WORD[i]);
          // }
-         collectAllPlayer_2.push(catchPlayer_2[0]); //WORDS
-         collectAllPlayer_2.push(catchPlayer_2[1]); //POINTS
- 
-         newCollectAllPlayer_2.push(collectAllPlayer_2);
+
+        //  if...
+        console.log("checkingword")
+        console.log(catchPlayer_2)
+
+        if (isWordInDictionary(catchPlayer_2[0])){
+          collectAllPlayer_2.push(catchPlayer_2[0]); //WORDS
+          collectAllPlayer_2.push(catchPlayer_2[1]); //POINTS
+          newCollectAllPlayer_2.push(collectAllPlayer_2);
+        }
+         
        }
  
  
@@ -877,6 +891,9 @@
      if (i == newCollectAllPlayer_2.length - 1){
        for (var j = 0; j < newCollectAllPlayer_2[i].length; j++){
          if (j == newCollectAllPlayer_2[i].length - 1){
+           console.log("PLAYER POINTS")
+           console.log(newCollectAllPlayer_2[i][j-1][0])
+           console.log(newCollectAllPlayer_2[i][j])
            addToHistory(newCollectAllPlayer_2[i][j-1], newCollectAllPlayer_2[i][j]);
          }
        }
