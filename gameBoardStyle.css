@@ -7,9 +7,9 @@
 
 body {
   font-family: Acme,sans-serif;
-  padding: 20px;
   margin: 0;
   padding: 0;
+  height: 95vh;
 }
 
 .container{
@@ -270,9 +270,43 @@ h1, h2 {
 
 .wrapper {
   max-width: 1300px;
+  height: 0;
   margin-left: auto;
   margin-right: auto;
   display: flex;
   flex-wrap: wrap;
   margin-top: 3em;
+}
+
+
+.announceWrap{
+  width: 87.3%;
+  height: 80vh;
+  overflow: hidden;
+  position: relative;
+  background-color: rgba(0, 0, 0, 0.8);
+  z-index: 888;
+  transition: 0.5s;
+  padding: 100px ;
+  visibility: hidden;
+  bottom:7rem;
+}
+
+.announceWrap:target{
+  width: auto;
+  height: auto;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+}
+
+.announceWrap > .announcePage{
+  width: 65%;
+  height: 70%;
+  background-color: rgb(255, 255, 255);
+  border-radius: 30px;
+  margin: 0 auto;
+  margin-top: 5.5rem;
 }
