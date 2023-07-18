@@ -150,6 +150,7 @@ td {
   width: 40%;
   margin-bottom: 15px;
 }
+
 .letter_board{
   padding: 20px;
   border-top: 8px solid #6A0D83;
@@ -309,4 +310,82 @@ h1, h2 {
   border-radius: 30px;
   margin: 0 auto;
   margin-top: 5.5rem;
+}
+
+.tutorial{
+  width: 0;
+  height: 0;
+  overflow: hidden;
+  position: fixed;
+  background-color: rgba(0, 0, 0, 0.9);
+  z-index: 888;
+  transition: 0.5s;
+  padding: 100px ;
+}
+
+.tutorial:target{
+  width: auto;
+  height: auto;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+}
+
+.tutorial > .tutorials{
+  width: 50%;
+  height: 50%;
+  background-color: rgb(255, 255, 255);
+  border-radius: 30px;
+  margin: 0 auto;
+  margin-top: 5.5rem;
+}
+
+.tutorial > .tutorials > .logo{
+  width: 65%;
+  height: 60%;
+  position: relative;
+  left: 35%;
+}
+
+.tutorial > .tutorials > .explain{
+  background-color: white;
+  margin-top: -6rem;
+  margin-left: 2rem;
+  padding-left: 2rem;
+}
+
+.tutorial > .tutorials > .explain > p{
+  font-family: 'Acme', sans-serif;
+  font-size: 1.5rem;
+  color: #8727A0;
+  letter-spacing: 2px;
+  margin-top: 1rem;
+}
+
+.tutorial > .tutorials > .explain > ul{
+  margin-left: 9rem;
+}
+
+.tutorial > .tutorials > .explain > ul > li{
+  font-family: 'Acme', sans-serif;
+  width: max-content;
+  font-size: 1rem;
+  color: #ffffff;
+  letter-spacing: 2px;
+  margin-top: 1.3rem;
+  padding: .8rem;
+  background-color: #8727A0;
+  margin-right: 1rem;
+  display: inline-block;
+  list-style: none;
+  border-radius: 20px;
+}
+
+.tutorial > .tutorials > .explain > ul > li > a{
+  font-family: 'Acme', sans-serif;
+  font-size: 1.2rem;
+  color: #ffffff;
+  text-decoration: none;
 }
